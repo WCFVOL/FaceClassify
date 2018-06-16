@@ -116,7 +116,9 @@ def deepid_generating(x, params_file, nkerns, n_hidden, acti_func=relu):
 
 
 def deepid_generate(arrs):
-    params_file    = os.path.join(settings.BASE_DIR,'TwoFace\deepid_gen\params_files')
+    params_file    = os.path.join(settings.BASE_DIR, 'TwoFace')
+    params_file    = os.path.join(params_file, 'deepid_gen')
+    params_file    = os.path.join(params_file, 'params_files')
     nkerns  = [20,40,60,80]
     n_hidden = 160
     return deepid_generating(arrs, params_file, nkerns, n_hidden, acti_func=relu)
