@@ -11,7 +11,7 @@ def get_face(img):
     #gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     # 特征级联表
     # 文件地址是你的opencv目录下的haarcascades\haarcascade_frontalface_alt.xml文件！！注意你要使用需要安装opencv并对下面地址进行修改
-    print(settings.BASE_DIR+'\haarcascade_frontalface_default.xml')
+    #print(settings.BASE_DIR+'\haarcascade_frontalface_default.xml')
     face_cascade = cv2.CascadeClassifier(os.path.join(settings.BASE_DIR, 'haarcascade_frontalface_default.xml'))
     # 多尺寸检测，返回列表  #
     img = cv2.imdecode(img, cv2.COLOR_BGR2GRAY)
