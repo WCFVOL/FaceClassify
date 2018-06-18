@@ -26,10 +26,13 @@ def two_face(request):
         token = post.get('token')
         if token != 'qqwrv':
             return JsonResponse({'ok': 0, 'msg': 'token错误'})
-        face1 = image = np.asarray(bytearray(request.FILES.get('face1').read()), dtype="uint8")
-        face2 = image = np.asarray(bytearray(request.FILES.get('face2').read()), dtype="uint8")
-        if face1 is None or face2 is None :
+        face1 = request.FILES.get('face1')
+        face2 = request.FILES.get('face2')
+        if face1 is None or face2 is None:
             return JsonResponse({'ok': 0, 'msg': '需要两张图片'})
+        face1 = np.asarray(bytearray(face1.read()), dtype="uint8")
+        face2 = np.asarray(bytearray(face2.read()), dtype="uint8")
+
         face_list_1 = get_face(face1)
         face_list_2 = get_face(face2)
         if len(face_list_1) == 0 :
