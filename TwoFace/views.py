@@ -49,5 +49,22 @@ def two_face(request):
         deepid_face_2 = deepid_generate(face_vector_2)
         result = judge_two_face(deepid_face_1, deepid_face_2)
         return JsonResponse({'ok': 1, 'result': result})
-    else :
-        return JsonResponse({'ok': 0, 'msg': 'i need POST and two image '})
+    else:
+        return JsonResponse({'ok': 0, 'msg': 'need POST and two image '})
+
+
+@csrf_exempt
+def judge_face(request):
+    if request.method == 'POST':
+        post = request.POST
+        token = post.get('token')
+        if token != 'qqwrv':
+            return JsonResponse({'ok': 0, 'msg': 'token错误'})
+        face = request.FILES.get('face')
+        if face is None:
+            return JsonResponse({'ok': 0, 'msg': '需要图片'})
+        face = np.asarray(bytearray(face.read()), dtype="uint8")
+        face_list = get_face(face)
+        return JsonResponse({'ok': 1, 'face_num': len(face_list)})
+    else:
+        return JsonResponse({'ok': 0, 'msg': 'need POST and an image '})

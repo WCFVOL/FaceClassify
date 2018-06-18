@@ -19,4 +19,5 @@ from TwoFace import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('two_face/', views.two_face),
+    path('judge_face/', views.judge_face),
 ]
