@@ -1,3 +1,5 @@
 
 .idea/
 TwoFace/deepid_gen/params_files
+*.pyc
+.idea/workspace.xml
