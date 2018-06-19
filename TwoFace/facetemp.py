@@ -8,6 +8,7 @@ from PIL import Image
 from FaceClassify import settings
 def get_face(img):
     # 转化为灰度图
+
     #gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     # 特征级联表
     # 文件地址是你的opencv目录下的haarcascades\haarcascade_frontalface_alt.xml文件！！注意你要使用需要安装opencv并对下面地址进行修改
@@ -15,6 +16,7 @@ def get_face(img):
     face_cascade = cv2.CascadeClassifier(os.path.join(settings.BASE_DIR, 'haarcascade_frontalface_default.xml'))
     # 多尺寸检测，返回列表  #
     img = cv2.imdecode(img, cv2.COLOR_BGR2GRAY)
+    # cv2.imwrite('img.jpg',img)
     face = face_cascade.detectMultiScale(img, 1.3, 3)
     i = 0
     face_list = []

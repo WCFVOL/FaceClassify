@@ -1,3 +1,5 @@
+import cv2
+import time
 from django.http import JsonResponse
 from django.shortcuts import render
 # Create your views here.
@@ -7,16 +9,6 @@ from TwoFace.deepid_gen.deepid_generate import deepid_generate
 from TwoFace.facetemp import get_face
 from TwoFace.retrieval.retrieve import judge_two_face
 from TwoFace.vector_img import vector_img
-
-
-def get_file(upfile):
-    f = None
-    for chunk in iter(lambda: upfile.read(4096), b""):
-        if f is None:
-            f = chunk
-        else:
-            f = f + chunk
-    return f
 
 
 @csrf_exempt
@@ -30,9 +22,10 @@ def two_face(request):
         face2 = request.FILES.get('face2')
         if face1 is None or face2 is None:
             return JsonResponse({'ok': 0, 'msg': '需要两张图片'})
+        t = str(time.time())
+
         face1 = np.asarray(bytearray(face1.read()), dtype="uint8")
         face2 = np.asarray(bytearray(face2.read()), dtype="uint8")
-
         face_list_1 = get_face(face1)
         face_list_2 = get_face(face2)
         if len(face_list_1) == 0 :
@@ -48,6 +41,11 @@ def two_face(request):
         deepid_face_1 = deepid_generate(face_vector_1)
         deepid_face_2 = deepid_generate(face_vector_2)
         result = judge_two_face(deepid_face_1, deepid_face_2)
+        if result > 0.8:
+            pass
+            #todo
+            #cv2.imwrite(t+'-1.jpg', face_list_1[0])
+            #cv2.imwrite(t+'-2.jpg', face_list_2[0])
         return JsonResponse({'ok': 1, 'result': result})
     else:
         return JsonResponse({'ok': 0, 'msg': 'need POST and two image '})

@@ -8,7 +8,6 @@ import pickle
 import gzip
 import os
 import sys
-import time
 import numpy
 import theano
 
